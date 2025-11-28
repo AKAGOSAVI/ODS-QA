@@ -12,3 +12,7 @@ FROM recent_orders;
 SELECT name
 FROM employees
 WHERE department_id = (SELECT department_id FROM departments WHERE name = 'Sales');
+
+
+
+test cases
