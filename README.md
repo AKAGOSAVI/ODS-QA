@@ -18,3 +18,5 @@ WHERE department_id = (SELECT department_id FROM departments WHERE name = 'Sales
 test cases
 scenario for TPP product
 deployement of GAA tickets
+created optimus core structure
+
