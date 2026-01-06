@@ -11,7 +11,7 @@ Framework Analysis:
 
 TEST_SCRIPT_GENERATION_PROMPTS
 Generate Java Selenium automation test scripts for Authentication module
-based on test cases TC001-TC005 from Base_Repo Path : C:\Users\ODS-QA\Documents\ZED\https---github.com-Sriram-Maheswara-zed_project\ZED_Scripts\src\OptimusCore\1_Base_Repo\Template\Template.md
+based on test cases TC001-TC005 from Base_Repo Path : C:\Users\ODS-QA\Documents\ZED\https---github.com-Akash_gosavi\ZED_Scripts\src\OptimusCore\1_Base_Repo\Template\Template.md
 FRAMEWORK COMPONENTS TO REUSE:
 ⦁	Base Class: extends BasePage.java for driver and config management
 ⦁	Page Object: LoginPage.java with methods:
