@@ -1,4 +1,4 @@
-SELENIUM AUTOMATION TEST SCRIPT GENERATION PROMPTS
+ods test cases
 This file contains prompts for generating Java Selenium automation scripts
 based on the manual test cases in Base_Repo and existing framework components.
 Framework Analysis:
