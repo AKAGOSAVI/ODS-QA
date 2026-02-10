@@ -1,5 +1,5 @@
 TC ID : TC_1
-Test type : Manual
+Test type : automation
 Test case Name:TC01_Ensure Consistent Application of Designated Professional Services Exclusion across General Liability and Umbrella Policies ZC 3339 and ZC 3676_Casualty_New Business_Acceptance Criteria 1
 Description: The objective of this test case is to validate,Ensure Consistent Application of Designated Professional Services Exclusion across General Liability and Umbrella Policies ZC 3339 and ZC 3676
 Actions:1.Initiate a Domestic submission with casualty
@@ -20,3 +20,4 @@ Status:Todo
 Component: Middile Market
 User story:CAMS-2736
 Priority:Medium
+
