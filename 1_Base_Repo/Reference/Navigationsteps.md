@@ -1,4 +1,5 @@
-Genereate sql code
+Genereate sql code and confirm
+
 
 
 
