@@ -1,4 +1,4 @@
-ods test cases
+
 This file contains prompts for generating Java Selenium automation scripts
 based on the manual test cases in Base_Repo and existing framework components.
 Framework Analysis:
@@ -10,7 +10,7 @@ Framework Analysis:
 ⦁	Reporting: ExtentReports with enhanced logging
 
 TEST_SCRIPT_GENERATION_PROMPTS
-Generate Java Selenium automation test scripts for Authentication module
+Generate SQL query for
 based on test cases TC001-TC005 from Base_Repo Path : C:\Users\ODS-QA\Documents\ZED\https---github.com-Akash_gosavi\ZED_Scripts\src\OptimusCore\1_Base_Repo\Template\Template.md
 FRAMEWORK COMPONENTS TO REUSE:
 ⦁	Base Class: extends BasePage.java for driver and config management
