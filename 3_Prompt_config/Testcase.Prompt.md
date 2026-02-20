@@ -4,7 +4,7 @@ based on the manual test cases in Base_Repo and existing framework components.
 Framework Analysis:
 ⦁	Base Test Class: BasePage.java (driver management, configuration)
 ⦁	Page Objects: LoginPage, ZEDPage
-⦁	Utilities: Base,ExcelReader
+⦁	Utilities: Base
 ⦁	Listeners: ExtentReportListener, ScreenshotListener
 ⦁	Test Data: JSON/Excel support via ExcelReader
 ⦁	Reporting: ExtentReports with enhanced logging
