@@ -1,6 +1,6 @@
 
 This file contains prompts for generating Java Selenium automation scripts
-based on the manual test cases in Base_Repo and existing framework components.
+
 Framework Analysis:
 ⦁	Base Test Class: BasePage.java (driver management, configuration)
 ⦁	Page Objects: LoginPage, ZEDPage
