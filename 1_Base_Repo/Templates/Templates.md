@@ -17,8 +17,9 @@ User shoud able to fill all the mandatory fields in all required screens
 User should able to Price,Quote & Bind the policy
 Test Repository Path:MM -November 2025/ CAMS-2736 Ensure Consistent Application of Designated Professional Services Exclusion across General Liability and Umbrella Policies ZC 3339 and ZC 3676
 Status:Todo
-Component: Middile Market
+Component: Commercial Auto
 User story:CAMS-2736
-Priority:Medium
+Priority:High
+
 
 
