@@ -1,0 +1,65 @@
+TestCaseID,ScenarioID,StoryID,Category,Priority,Preconditions,TestSteps,ExpectedResult,ReferenceScreenshots,Notes
+"TC-CSR-233-POS-001","TS-CSR-233-001","CSR-233","POS","High","Staging environment with pre-change dataset snapshot available; access to ETL SQL/views and sample data containing IRCA, driver, and premium records.","1. Retrieve sample datasets used by the current ETL (drivers, premium, pc_policylocation).
+2. Run pre-change query (LEFT JOIN between driver and premium) and save results.
+3. Modify query to use INNER JOIN and run it against the same sample dataset.
+4. Filter result set to IRCA records where policy/business addr previously caused exclusion (QC/BC cases).
+5. Compare counts and sample rows between LEFT JOIN and INNER JOIN outputs.","INNER JOIN output includes IRCA records that were previously missing under LEFT JOIN for matching driver+premium cases. For sample QC/BC vehicle locations, IRCA records are present and fields (policy id, vehicle id, risk_province) are populated. No unexpected additional exclusions are observed.","temp_word_images/image1.png; temp_word_images/image2.png","Verifies AC-001.1 and AC-001.3"
+
+"TC-CSR-233-UNIT-001","TS-CSR-233-001","CSR-233","UNIT","High","Unit test harness able to run SQL/tests against mocked datasets.","1. Create three mocked datasets:
+   a) matching driver + premium
+   b) driver-only (no premium)
+   c) premium-only (no driver)
+2. Run join logic code/unit that implements INNER JOIN.
+3. Verify outputs for each mocked input.","a) For matching driver+premium → record appears with expected fields.
+b) Driver-only → no joined record produced.
+c) Premium-only → no joined record produced.","","Covers AC-001.2 (unit tests for join change)"
+
+"TC-CSR-233-REG-001","TS-CSR-233-001","CSR-233","REGRESSION","High","Baseline dataset snapshot (pre-change) and post-change outputs accessible for reconciliation.","1. Run the full ETL process pre-change (baseline) and capture counts for affected tables (IRCA, Drivers SDM).
+2. Deploy the change in a staging run (INNER JOIN + risk_province changes disabled) and capture same counts.
+3. Enable full change and run ETL; capture counts.
+4. Produce reconciliation comparing baseline vs post-change counts and sample diffs.","No net unexpected losses of records occur outside the intended inclusion of IRCA records; the delta is explainable by the intended behavior change. If delta exceeds threshold (configurable), fail and investigate.","temp_word_images/image3.png","Covers AC-001.4"
+
+"TC-CSR-233-POS-002","TS-CSR-233-002","CSR-233","POS","High","Access to data field `pc_policylocation.stateinternal` and `pctl_state` typelist mapping in staging DB.","1. Identify sample policies with vehicles located in various provinces (QC, BC, ON, etc.).
+2. For each sample, read `pc_policylocation.stateinternal` value.
+3. Run mapping logic that converts `stateinternal` to two-letter code via `pctl_state.typecode`.
+4. Verify `risk_province` assigned in result set matches expected two-letter code.","`risk_province` for each sample equals the `pctl_state.typecode` corresponding to `pc_policylocation.stateinternal`. QC and BC cases are correctly mapped and appear in the IRCA inclusion results.","temp_word_images/image1.png","Validates AC-002.1 and AC-002.2"
+
+"TC-CSR-233-NEG-002","TS-CSR-233-002","CSR-233","NEG","High","Staging data that includes records with null, empty, or malformed `stateinternal` values.","1. Prepare sample records with null `stateinternal`, empty string, and malformed values.
+2. Run mapping logic.
+3. Observe behavior: mapping, error logs, fallback handling.","Records with null/empty `stateinternal` are handled per documented fallback (marked as UNKNOWN and flagged). Malformed values either map to a closest allowed value per mapping rules or are logged and flagged for manual review. No silent mis-mapping occurs.","temp_word_images/image4.png","Validates AC-002.3 and AC-002.4"
+
+"TC-CSR-233-MAP-001","TS-CSR-233-003","CSR-233","MAP","Medium","Access to full `pctl_state` typelist and representative production `stateinternal` samples.","1. Export `pctl_state` typelist with `typecode` and associated keys.
+2. Extract distinct `stateinternal` values from sample production data.
+3. For each distinct value, verify there is a corresponding typelist entry.
+4. For any missing mappings, create a defect record and log examples.","Every `stateinternal` value has a corresponding `pctl_state.typecode`. Missing mappings are recorded in a report with example policy & vehicle IDs. Automated test fails if missing mappings exceed 0 (or the configured tolerance).","","Covers AC-003.1 through AC-003.3"
+
+"TC-CSR-233-BACKFILL-001","TS-CSR-233-004","CSR-233","BACKFILL","High","Backfill script available; staging area for updates; baseline snapshot for reconciliation.","1. Run backfill in dry-run mode against historical data; do not commit changes.
+2. Generate reconciliation report: counts before/after, sample row diffs (policy id, vehicle id, old risk_province, new risk_province).
+3. Review report with stakeholders; if accepted, run backfill in commit mode.
+4. Re-run reconciliation and verify idempotence by running commit mode a second time (no additional changes should occur).","Dry-run report demonstrates expected changes without committing. Commit run updates historical records with recalculated `risk_province`. Re-running commit mode produces no further changes (idempotent). Reconciliation report attached to PR.","temp_word_images/image5.png","Covers AC-004.1 to AC-004.3; includes AC-004.4 rollout verification"
+
+"TC-CSR-233-QA-001","TS-CSR-233-005","CSR-233","QA","High","QA environment with UI or reporting surface to capture sample evidence screenshots.","1. Using sample policies with vehicles in QC, BC, and other provinces, run full ETL with change enabled.
+2. Verify IRCA inclusion in Drivers SDM for each sample.
+3. Capture screenshots of sample records, QA reports, and append to evidence.
+4. Validate behavior for multi-vehicle policies with differing provinces.","IRCA records for QC/BC/sample provinces are present in Drivers SDM and show `risk_province` matching `pc_policylocation.stateinternal` mapping. Evidence screenshots attached.","temp_word_images/image1.png; temp_word_images/image2.png; temp_word_images/image3.png","Covers AC-005.1 and AC-005.4"
+
+"TC-CSR-233-QA-NEG-001","TS-CSR-233-006","CSR-233","NEG","High","QA environment with capability to inject malformed inputs and observe logs.","1. Inject records with malformed `stateinternal`, mismatched driver/premium references, and incomplete vehicle data.
+2. Run ETL with validations enabled.
+3. Observe error logs, record flags, and whether records are excluded/included per spec.","Malformed or mismatched records are logged with details (policy id, vehicle id, raw `stateinternal`), flagged for manual review, and do not silently corrupt dataset. Behavior matches documented negative handling.","temp_word_images/image4.png","Covers AC-005.2 and AC-005.3"
+
+"TC-CSR-233-MON-001","TS-CSR-233-007","CSR-233","MONITORING","Medium","Access to logging/monitoring stack and ability to run reconciliation jobs.","1. Implement structured logging for unmapped/missing `stateinternal` entries (include policy_id, vehicle_id, job_id).
+2. Run daily reconciliation job that computes IRCA inclusion deltas by province.
+3. Validate that when a synthetic anomaly is introduced (e.g., drop mappings for QC), the alert triggers.","Structured logs contain entries for each unmapped/missing value and reconciliation job raises alert when deltas exceed threshold. Dashboard displays IRCA inclusion rate by province.","","Covers AC-006.1 to AC-006.3"
+
+"TC-CSR-233-DEP-001","TS-CSR-233-008","CSR-233","DEPLOY","Medium","Feature-flag framework available in staging; runbook and smoke tests defined.","1. Deploy change behind feature flag in staging.
+2. Enable flag for subset of tenants or datasets.
+3. Run smoke tests verifying join behavior and mapping for sample records.
+4. If issues found, disable flag and verify system reverts to previous behavior.","Feature flag successfully toggles behavior between old and new logic. Disabling flag returns datasets to pre-change outputs. Runbook steps are executable and validated.","","Covers AC-007.1 to AC-007.3"
+
+"TC-CSR-233-DOC-001","TS-CSR-233-009","CSR-233","DOC","Low","Access to repo to commit spec updates; ability to capture audit logs.","1. Update technical spec and runbook describing join change and `pc_policylocation.stateinternal` usage.
+2. Ensure migration/backfill instructions and verification steps are documented.
+3. Run a sample production job and verify audit entry (who/when/job-id) is recorded.","Documentation updated in repo and runbook; audit logs show entries for runs that changed `risk_province` including job id and user/service performing the operation.","","Covers AC-008.1 to AC-008.3"
+
+"TC-CSR-233-PERF-001","TS-CSR-233-010","CSR-233","PERF","Medium","Representative large dataset for performance testing; performance baseline metrics available.","1. Run ETL on representative dataset with pre-change logic and record runtime, CPU, memory, and I/O metrics.
+2. Run ETL after applying INNER JOIN and mapping changes; record same metrics.
+3. Compare results and identify queries with increased cost; run explain plans and propose optimizations (indexes/partitioning).","Post-change ETL runtime regression is less than 10% (or within agreed SLA). If regression exceeds threshold, optimization plan documented (indexing, query rewrite, incremental processing).","","Covers AC-009.1 and AC-009.2"
