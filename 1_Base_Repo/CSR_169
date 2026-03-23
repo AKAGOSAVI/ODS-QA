@@ -62,10 +62,4 @@
   - 0-prem policy-change source count equals SDM count.
   - 0-prem submission source count equals 0 in SDM.
 
-## Suggested BDD scenarios
-- 0-prem submission excluded (Fleet 5651553).
-- 0-prem policy-change included (Fleet 5651553).
-- 100-prem submission included (NOA 5651558).
-- 0-prem policy-change included (TPP 5651565).
-- Invalid transaction type => error.
-- Unlisted policy line with 0-prem submission excludes by rule.
+
