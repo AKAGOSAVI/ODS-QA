@@ -1,0 +1,71 @@
+# CSR-169 User Stories and Acceptance Criteria
+
+## Background
+- Source: `1_Base_Repo/CSR_169/CSR_169 REFRENCE FILE.docx`
+- Rule: Exclude $0 premium records from SDM unless transaction type = Policy Change.
+- Policy lines: Fleet, IRCA, Contingent, Garage, Excess, NOA, TPP.
+
+## User Story 1: $0 premium exclusion rule
+**Title:** CSR-169: Enforce $0 premium exclusion in SDM except policy-change records
+**As a** data quality analyst
+**I want** SDM to omit $0-premium records in standard submissions
+**So that** reporting only includes meaningful premium movements while preserving policy-change traceability
+
+### Acceptance Criteria
+1. AC-169-1: If a record has `premium == 0` and `transactionType == Submission`, it is excluded from SDM.
+2. AC-169-2: If a record has `premium == 0` and `transactionType == Policy Change`, it is included in SDM.
+3. AC-169-3: If a record has `premium > 0` (any transaction type), it is included in SDM.
+4. AC-169-4: Policy types (Fleet, IRCA, Contingent, Garage, Excess, NOA, TPP) follow this same premium rule.
+5. AC-169-5: Unit tests cover each policy type and both transaction types for premium = 0 (14 cases).
+6. AC-169-6: Regression tests cover non-zero premiums remain unaffected.
+
+### Implementation Notes
+- Filter step:
+  - if premium == 0 and transactionType != "Policy Change" => skip.
+  - else => include.
+- Audit fields:
+  - `sdm_exclusion_reason` as `zero_premium_submission` / `policy_change_zero_premium_preserved`.
+- Metrics:
+  - `sdm.zero_premium_excluded.count`
+  - `sdm.zero_premium_policy_change.included.count`
+
+## User Story 2: Policy-type matrix coverage
+**Title:** CSR-169: Validate policy type matrix for zero-premium SDM rules
+**As a** QA engineer
+**I want** explicit per-policy-line test coverage
+**So that** all portfolio lines are validated and no line-specific gap occurs
+
+### Acceptance Criteria
+1. AC-169-7: Matrix includes rows Fleet, IRCA, Contingent, Garage, Excess, NOA, TPP and columns Submission/Policy Change/Premium 0/Premium >0.
+2. AC-169-8: Submission + premium=0 => exclude.
+3. AC-169-9: Policy Change + premium=0 => include.
+4. AC-169-10: Any premium >0 => include.
+5. AC-169-11: Parameterized automation test uses this matrix.
+
+## User Story 3: Audit and compliance tracing
+**Title:** CSR-169: Track zero-premium record eligibility in SDM audit trail
+**As a** compliance auditor
+**I want** explicit audit decisions for excluded/included records
+**So that** I can recreate decision history
+
+### Acceptance Criteria
+1. AC-169-12: Excluded 0-prem submission has audit tag `zero_premium_excluded`.
+2. AC-169-13: Included 0-prem policy change has audit tag `zero_premium_policy_change`.
+3. AC-169-14: Output includes `policyType`, `transactionType`, `premium`, `sdmDecision`.
+4. AC-169-15: Logs include decision statement with policy and transaction details.
+
+## Edge Conditions
+- Normalize transaction type values (case, synonyms) into canonical values.
+- Normalize premium values treating -0.00 as 0.
+- Preserve keys for included policy-change zero premiums.
+- Post-validation metrics:
+  - 0-prem policy-change source count equals SDM count.
+  - 0-prem submission source count equals 0 in SDM.
+
+## Suggested BDD scenarios
+- 0-prem submission excluded (Fleet 5651553).
+- 0-prem policy-change included (Fleet 5651553).
+- 100-prem submission included (NOA 5651558).
+- 0-prem policy-change included (TPP 5651565).
+- Invalid transaction type => error.
+- Unlisted policy line with 0-prem submission excludes by rule.
