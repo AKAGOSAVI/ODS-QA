@@ -53,6 +53,30 @@ Zed.update_BinderUWD();
 Zed.uwuaPhoneNumberVerification();
 Zed.clickingOncheckBoxes_Random();
 Zed.ClickOnTabUploadDocument();
+
+
+
+
+
+
+
+FOR ODS - Prompts
+Prompt for test cases genartion
+Generate teste cases from user story -
+"User story path"
+Generate test cases for fields -
+"Mention fields which required to test as part of ETL testing"
+ 
+Generate test cases based on requirement -
+"Give specifiec requirement for field"
+Generate test cases for source to target validation -
+"Source and target information"
+generate test cases for Policy center based on transaction and scenario -
+"Give transaction details of policies and scenario for testing"
+generate test cases for Claim center based on transaction and scenario -
+"Give transaction details of claims and scenario for testing"
+Generate test cases for commercial auto policies -
+"Give product type, Province, Risk typ and scenario specifiec"
 Zed.clickOnbtnupload();
 String[] sPath = map.get("Filenames").split(";");
 for (int i = 0; i < sPath.length; i++) {
