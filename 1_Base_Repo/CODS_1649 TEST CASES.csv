@@ -1,4 +1,4 @@
-Cods_1649 qa test cases
+Cods_1649 copilot test cases
 Testcase Id,Product Type,Policy Number,Test Case Scenario,Test Case Steps,Actual Result,Expected Result,Status
 CODS1649-TC-001,Liability,23053210,Validate Offered_ZHG is present for a known affected policy,"1) Run: select * from can_ods_q01.actu_mm_uatd_gold.actu_modm_full_liability_quoted where policy_number='23053210'; 2) Inspect Offered_ZHG column for the returned row(s).",,"Record exists and `Offered_ZHG` is not null for policy 23053210","Not Run"
 CODS1649-TC-002,Liability,N/A,Validate distinct Offered_ZHG values exist in liability quoted table,"1) Run: select distinct Offered_ZHG from can_ods_q01.actu_mm_uatd_gold.actu_modm_full_liability_quoted; 2) Record the distinct values returned.",,"Distinct values list is returned (e.g., True/False/NULL) and not empty","Not Run"
