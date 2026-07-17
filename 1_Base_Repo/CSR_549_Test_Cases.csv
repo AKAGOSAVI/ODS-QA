@@ -1,0 +1,46 @@
+Test ID,Title,Description,Steps,Expected Results,Priority,Test Type,Source User Story,Acceptance Criteria
+TC-US-001-POS-001,Display successful batch run statistics,Verify that a completed batch execution shows a successful status and relevant metadata.,"1. Open the workflow monitoring view.
+2. Select a batch run that completed successfully.
+3. Review the details shown for that run.","The batch appears with a successful status and includes run timestamp, batch identifier, and completion details.",High,Positive,US-001,"AC-1, AC-2, AC-3"
+TC-US-001-NEG-001,Flag failed batch runs,Ensure failed batch executions are clearly highlighted for review.,"1. Open the workflow monitoring view.
+2. Select a batch run that failed.
+3. Review the displayed status and details.",The failed batch is displayed with an error or failed status and is visibly flagged for investigation.,High,Negative,US-001,"AC-2, AC-4, AC-5"
+TC-US-001-BDY-001,Handle incomplete batch metadata,Verify that missing or incomplete batch run data is represented safely instead of being mistaken for success.,"1. Open the workflow monitoring view.
+2. Select a batch record with missing execution information.
+3. Review the status shown for that record.",The system displays the batch as incomplete or unknown and does not misrepresent it as successful.,Medium,Boundary,US-001,"AC-1, AC-4"
+TC-US-002-POS-001,Display successful job run details,Verify that completed jobs are shown with their execution status and identifying information.,"1. Open the workflow monitoring view.
+2. Navigate to the job run statistics section.
+3. Select a completed job entry.",The job appears as successful and includes the job identifier and execution details.,High,Positive,US-002,"AC-1, AC-2, AC-3"
+TC-US-002-NEG-001,Show failed job outcomes,Ensure failed job executions are visible with relevant error context.,"1. Open the workflow monitoring view.
+2. Select a job record that failed.
+3. Review the status and supporting details.",The failed job is clearly marked as failed and includes available error context for investigation.,High,Negative,US-002,"AC-2, AC-4, AC-5"
+TC-US-002-BDY-001,Represent in-progress or skipped jobs,Verify that jobs that are still running or skipped are shown clearly and not omitted.,"1. Open the workflow monitoring view.
+2. Select a job that is in progress or skipped.
+3. Review the displayed status.",The system displays the correct in-progress or skipped state and provides enough context to interpret the job outcome.,Medium,Boundary,US-002,"AC-2, AC-4"
+TC-US-002-INT-001,Correlate job and batch results,Verify that job outcomes can be correlated to the parent batch result for end-to-end monitoring.,"1. Open the workflow monitoring view.
+2. Select a specific batch and its associated jobs.
+3. Compare the job statuses with the batch summary.",The user can see how individual job outcomes contribute to the overall batch status.,Medium,Integration,US-002,"AC-4, AC-5"
+TC-US-003-POS-001,Display successfully processed files,Verify that successfully processed files are listed with a success status.,"1. Open the workflow monitoring view.
+2. Navigate to the file run statistics section.
+3. Select a file that has completed successfully.",The file is shown with a successful processing status and the associated file reference.,High,Positive,US-003,"AC-1, AC-2, AC-3"
+TC-US-003-NEG-001,Flag files with processing issues,Ensure files that encountered issues are clearly indicated.,"1. Open the workflow monitoring view.
+2. Select a file with a processing problem.
+3. Review the status and file details.",The file is marked as having an issue and the problem is visible to the user.,High,Negative,US-003,"AC-2, AC-4, AC-5"
+TC-US-003-BDY-001,Handle empty or duplicate file entries,Verify that incomplete or duplicate file records are treated explicitly rather than appearing as successful.,"1. Open the workflow monitoring view.
+2. Select a file record that is empty, duplicate, or partially populated.
+3. Review how it is presented.",The system shows the file record as incomplete or duplicate and does not misrepresent it as successful.,Medium,Boundary,US-003,"AC-4, AC-5"
+TC-US-003-INT-001,Cross-check file status with workflow context,Verify that file-level results can be interpreted in the broader workflow context.,"1. Open the workflow monitoring view.
+2. Review a file entry and its related batch/job context.
+3. Compare the file result with the parent workflow result.",The user can understand how file outcomes relate to the overall workflow status.,Medium,Integration,US-003,"AC-4, AC-5"
+TC-US-004-POS-001,View consolidated workflow summary,"Verify that the consolidated reporting view presents batch, job, and file outcomes together.","1. Open the workflow summary view.
+2. Review the batch, job, and file sections.
+3. Compare the displayed statuses.",The summary view shows a unified representation of workflow health across all three levels.,High,Positive,US-004,"AC-1, AC-2, AC-3"
+TC-US-004-NEG-001,Highlight workflow exceptions,Ensure that problematic areas in the overall workflow summary are clearly surfaced.,"1. Open the workflow summary view.
+2. Select a summary containing failed batch, job, or file items.
+3. Review the highlighted results.",The summary view clearly identifies the areas where the workflow has exceptions or failures.,High,Negative,US-004,"AC-3, AC-5"
+TC-US-004-BDY-001,Handle partial workflow data,Verify that a summary with incomplete data is shown appropriately without implying full success.,"1. Open the workflow summary view.
+2. Review a summary where one or more monitoring components have missing data.
+3. Assess the displayed state.",The summary clearly indicates incomplete or partial data rather than implying a fully successful workflow.,Medium,Boundary,US-004,"AC-1, AC-4"
+TC-US-004-INT-001,Drill down from summary to detailed results,"Verify that the consolidated summary allows navigation to detailed batch, job, and file information.","1. Open the workflow summary view.
+2. Select a summary item that requires deeper inspection.
+3. Navigate to the detailed view for that item.",The user can drill into underlying details from the summary view and understand the root cause or status of the selected component.,Medium,Integration,US-004,"AC-4, AC-5"
