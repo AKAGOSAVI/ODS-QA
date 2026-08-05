@@ -1,0 +1,13 @@
+Test ID,Title,Description,Steps,Expected Results,Priority,Test Type
+TC-CODS1731-DV-001,Validate latest same-day RERATE selection,Verify system retains only the most recent RERATE record when multiple same-day RERATE records exist for the same policy,"1. Submit multiple policy version records for the same policy_number where version_type = RERATE and policy_version_issued_at differs, all received on the same day.
+2. Trigger processing.",The system retains only the RERATE record with the latest policy_version_issued_at and rejects older same-day RERATE records.,High,Data Validation
+TC-CODS1731-DV-002,Validate older consecutive RERATE rejection,Verify older consecutive RERATE versions are rejected when a newer RERATE appears,"1. Submit a sequence of consecutive RERATE records for a policy with ascending policy_version_issued_at values.
+2. Trigger processing.",The system rejects each earlier consecutive RERATE and keeps only the latest RERATE record.,High,Data Validation
+TC-CODS1731-DV-003,Validate non-RERATE version handling,Verify NEW, CHANGE, and null version types are not rejected by RERATE deduplication logic,"1. Submit policy records of type NEW, CHANGE, and null alongside RERATE records.
+2. Trigger processing.",The system processes non-RERATE records according to their own rules and does not reject them due to RERATE deduplication.,Medium,Data Validation
+TC-CODS1731-DV-004,Validate issue timestamp ordering for same effective date RERATEs,Verify selection uses policy_version_issued_at when multiple RERATEs share the same policy_version_effective_date,"1. Submit multiple RERATE records with identical policy_version_effective_date but different policy_version_issued_at values.
+2. Trigger processing.",The system selects the RERATE record with the latest policy_version_issued_at and rejects the others.,High,Data Validation
+TC-CODS1731-DV-005,Validate same-day rerate consolidation,Verify exactly one RERATE version is retained for a policy when same-day rerate deliveries occur,"1. Submit several same-day RERATE records for one policy.
+2. Trigger processing.",The system retains exactly one RERATE version for the policy and excludes all other same-day RERATE records from output.,High,Data Validation
+TC-CODS1731-DV-006,Validate tiebreaker requirement when issue timestamps match,Verify system has a deterministic tiebreaker if policy_version_issued_at values are identical,"1. Submit two or more same-day RERATE records with identical policy_version_issued_at and differing policy_version_id or policy_version_number.
+2. Trigger processing.",The system applies a deterministic tiebreaker (such as highest policy_version_id or policy_version_number) and retains one record while rejecting others.,Medium,Data Validation
