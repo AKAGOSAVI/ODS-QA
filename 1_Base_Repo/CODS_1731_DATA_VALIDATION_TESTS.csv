@@ -1,3 +1,4 @@
+CODS_1731 QA TEST CASES
 Test ID,Title,Description,Steps,Expected Results,Priority,Test Type
 TC-CODS1731-DV-001,Validate latest same-day RERATE selection,Verify system retains only the most recent RERATE record when multiple same-day RERATE records exist for the same policy,"1. Submit multiple policy version records for the same policy_number where version_type = RERATE and policy_version_issued_at differs, all received on the same day.
 2. Trigger processing.",The system retains only the RERATE record with the latest policy_version_issued_at and rejects older same-day RERATE records.,High,Data Validation
