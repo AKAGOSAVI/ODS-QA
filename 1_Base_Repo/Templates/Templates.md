@@ -8,3 +8,6 @@ DATE 19-08-2026
 TASK - Created test cases for CSR 581
 Date 28-08-2026
 Task  - Created test cases for CSR 610
+Date 02-09-2026
+Task  - Created test cases for CSR 611
+
