@@ -1,0 +1,502 @@
+Test_ID,User_Story_ID,Test_Title,Test_Type,Priority,Preconditions,Test_Steps,Expected_Results,Data_Inputs,Coverage_Area,Status
+CSR611-TC-001,CSR-611-US-001,Identify policies with Rerate $0 premium followed by Change version,Data Quality,High,"SQ1 ODS database accessible, Latest active term policies loaded, Data pattern documented","1. Connect to SQ1 ODS database
+2. Query for policies with Rerate version premium = 0
+3. Filter for those followed by Change version with premium > 0
+4. Extract policy numbers and attributes
+5. Document findings","Query returns all matching policies correctly, Policy identifiers are accurate, Effective dates match database records, Premium amounts are correct","Policy Data: SQ1 ODS Feed, Premium = 0 for Rerate, Premium > 0 for Change","Data Identification",Not Started
+CSR611-TC-002,CSR-611-US-001,Verify policy attributes in impacted records,Data Quality,High,"Test data from TC-001 available, Report template prepared","1. Extract key attributes from each impacted policy
+2. Verify policy number format
+3. Verify customer/account information exists
+4. Verify effective date matches active term
+5. Verify both Rerate and Change version details
+6. Document coverage type and state","All required attributes populated correctly, No missing data fields, Data types are correct, Date formats are consistent","Policy Number, Customer ID, Effective Date, Coverage Type, State","Data Validation",Not Started
+CSR611-TC-003,CSR-611-US-001,Calculate cumulative premium impact,Data Quality,High,"All impacted policies identified, Premium amounts extracted","1. Sum all Rerate premium amounts (should be 0)
+2. Sum all Change premium amounts (actual premiums)
+3. Calculate difference = Impact amount
+4. Categorize by coverage type
+5. Categorize by state","Cumulative impact calculated correctly, Results reconcile with source data, Categorization is accurate, Total count of impacted policies is correct","Premium Data: Rerate=$0, Change=actual amount","Financial Impact",Not Started
+CSR611-TC-004,CSR-611-US-001,Verify data privacy and compliance in report,Data Quality,Medium,"Report prepared with all impacted policies, Privacy policy reviewed","1. Review report for any PII data
+2. Verify masking/anonymization applied
+3. Check GDPR/compliance requirements
+4. Verify data retention settings
+5. Document audit trail","All PII properly masked, Compliance requirements met, Audit trail complete, Data retention policy followed","Report containing policy data, Privacy policy requirements","Compliance",Not Started
+CSR611-TC-005,CSR-611-US-001,Validate data feed source for each policy,Data Quality,Medium,"Impacted policies list prepared, Feed source documentation available","1. For each impacted policy, identify source feed
+2. Verify SQ1 ODS feed source
+3. Check for any alternate sources
+4. Document feed version and load date
+5. Flag any non-SQ1 sources","All policies have confirmed SQ1 ODS source, Feed version documented, Load dates recorded, No discrepancies found","Policy Data: Feed Source Field","Data Source Validation",Not Started
+CSR611-TC-006,CSR-611-US-002,Validate Rerate-Change sequence in problematic policies,Data Validation,High,"Sample policies with Rerate $0 and Change premium selected, Transaction logs available","1. Pull full version history for sample policy
+2. Verify Rerate version exists with premium = 0
+3. Confirm Change version follows Rerate
+4. Verify Change version has premium > 0
+5. Check no other versions between them","Version sequence is as documented, Premium amounts match specifications, No missing versions, Timing/dates are correct","Policy Sample: With Rerate $0 + Change premium","Pattern Validation",Not Started
+CSR611-TC-007,CSR-611-US-002,Confirm this is not normal business logic,Data Validation,High,"Sample problematic policies available, Normal policy patterns documented","1. Compare Rerate $0 pattern against normal processing logic
+2. Review business rules for Rerate processing
+3. Verify $0 premium is not expected in any scenario
+4. Document deviation from normal process
+5. Confirm with subject matter experts","Pattern confirmed as abnormal, No valid business case found for $0 Rerate premium, SME concurrence obtained","Business Rules Documentation, Normal Policies","Root Cause Analysis",Not Started
+CSR611-TC-008,CSR-611-US-002,Investigate system processing errors during Rerate,Data Validation,High,"Error logs available for affected policies, Rating engine logs accessible","1. Identify Rerate processing timestamps
+2. Extract system error logs for those times
+3. Check rating engine logs
+4. Check policy version creation logs
+5. Document any errors or warnings found","Error logs retrieved for all affected periods, Correlation found between errors and Rerate $0, Root cause identified, Errors documented","System Logs, Timestamp Data","System Error Investigation",Not Started
+CSR611-TC-009,CSR-611-US-002,Check for data feed transmission issues,Data Validation,Medium,"Feed transmission logs available, Network monitoring data accessible","1. Review feed transmission logs for affected dates
+2. Check for transmission failures
+3. Check for delayed transmissions
+4. Verify data integrity checksums
+5. Document any anomalies","Transmission logs reviewed completely, Any failures documented with timestamps, Data integrity verified, Feed processing sequence confirmed","Transmission Logs, Feed Data","Feed Processing Validation",Not Started
+CSR611-TC-010,CSR-611-US-002,Analyze timing and sequencing issues,Data Validation,Medium,"Policy version timestamps available, Processing sequence data","1. Extract creation timestamps for Rerate and Change
+2. Calculate time delta between versions
+3. Check policy status at each point
+4. Verify sequencing logic
+5. Identify any timing anomalies","Time delta documented for all affected policies, Sequencing issues identified if present, Status transitions verified, Anomalies categorized","Timestamp Data, Version Info","Sequencing Analysis",Not Started
+CSR611-TC-011,CSR-611-US-002,Identify coverage type isolation patterns,Data Validation,Medium,"All impacted policies identified, Coverage type classification available","1. Categorize all impacted policies by coverage type
+2. Calculate percentage per coverage type
+3. Compare against normal population distribution
+4. Identify any concentration patterns
+5. Document findings","Coverage type distribution documented, Patterns identified, Concentration areas noted, Comparison against normal distribution completed","Coverage Type Data","Pattern Analysis",Not Started
+CSR611-TC-012,CSR-611-US-002,Identify geographic isolation patterns,Data Validation,Medium,"All impacted policies identified, State/region classification available","1. Categorize all impacted policies by state
+2. Calculate percentage per state/region
+3. Compare against normal population distribution
+4. Identify any concentration patterns
+5. Document findings","Geographic distribution documented, Regional patterns identified, Comparison completed, Concentration areas noted","State, Region Data","Geographic Analysis",Not Started
+CSR611-TC-013,CSR-611-US-002,Determine frequency and temporal distribution,Data Validation,Medium,"All impacted policies identified with timestamps, Historical data available","1. Extract creation date for each impacted policy
+2. Plot temporal distribution
+3. Identify any trend lines
+4. Calculate frequency per time period
+5. Document patterns","Temporal distribution plotted correctly, Trend analysis completed, Frequency calculated, Any increasing/decreasing patterns noted","Timestamp Data","Temporal Analysis",Not Started
+CSR611-TC-014,CSR-611-US-003,Design code fix approach for $0 Rerate handling,Development,High,"Requirements documented, Technical design review scheduled","1. Define handling approach (prevent vs. graceful handling)
+2. Document decision logic for $0 Rerate
+3. Design validation rules
+4. Design data correction logic
+5. Create technical design document","Design document complete and detailed, Approach justified, Decision logic clear, Validation rules defined, Ready for technical review","Design Requirements","Code Design",Not Started
+CSR611-TC-015,CSR-611-US-003,Verify code changes in rate calculation engine,Development,High,"Code changes implemented, Unit test environment ready","1. Locate rate calculation module
+2. Verify code changes for $0 premium handling
+3. Check validation rule implementation
+4. Verify error handling logic
+5. Review for performance impact","Code changes verified in correct module, $0 premium handling logic correct, Validation rules implemented, Error handling appropriate, No performance degradation","Rate Engine Code","Code Implementation",Not Started
+CSR611-TC-016,CSR-611-US-003,Verify code changes in policy version management,Development,High,"Code changes implemented, Version management system accessible","1. Locate policy version module
+2. Verify version sequencing logic
+3. Check for $0 Rerate special handling
+4. Verify Change version processing
+5. Review for data integrity","Version management changes verified, Sequencing logic correct, Special handling implemented, Data integrity maintained","Version Management Code","Code Implementation",Not Started
+CSR611-TC-017,CSR-611-US-003,Implement validation for $0 Rerate detection,Development,High,"Code changes ready, Unit test data prepared","1. Verify pre-processing validation exists
+2. Verify post-processing validation exists
+3. Check real-time monitoring capability
+4. Test validation on sample data
+5. Verify alerts are generated","Pre-processing validation working correctly, Post-processing validation working, Monitoring capability functional, Alerts generated appropriately, Sample data processed correctly","Validation Logic Code, Sample Data","Validation Implementation",Not Started
+CSR611-TC-018,CSR-611-US-003,Verify error handling and logging implementation,Development,High,"Code changes implemented, Logging framework configured","1. Check for $0 Rerate warning logs
+2. Verify correction action logging
+3. Check audit trail generation
+4. Test error message clarity
+5. Verify log levels appropriate","Warning logs generated for $0 Rerate, Correction actions logged, Audit trail complete, Error messages clear, Log levels appropriate","Logging Code","Error Handling",Not Started
+CSR611-TC-019,CSR-611-US-003,Test backward compatibility with existing data,Development,Medium,"Code changes implemented, Existing policy samples available","1. Load existing policy data
+2. Execute code changes
+3. Verify no data corruption occurs
+4. Check calculations remain consistent
+5. Verify version history integrity","Existing data loads successfully, No corruption detected, Calculations consistent, Version history intact, No unintended modifications","Existing Policy Data","Compatibility Testing",Not Started
+CSR611-TC-020,CSR-611-US-003,Verify configuration options and feature flags,Development,Medium,"Code changes include configuration options, Configuration framework available","1. Verify feature flag implementation
+2. Test enable/disable functionality
+3. Check configuration parameter usage
+4. Verify defaults are appropriate
+5. Document configuration requirements","Feature flags functional, Enable/disable works correctly, Configuration parameters used properly, Defaults appropriate, Documentation complete","Configuration Code, Parameters","Configuration Verification",Not Started
+CSR611-TC-021,CSR-611-US-004,Test normal scenario - Rerate with normal premium,Unit Test,High,"Unit test framework set up, Test data with normal Rerate prepared","1. Create test policy with normal premium Rerate
+2. Execute rating logic
+3. Create Change version
+4. Verify premium calculations
+5. Verify version sequencing","Premiums calculated correctly, Version sequencing correct, No unintended modifications, Test passes","Policy Data: Normal Premium, Rerate then Change","Normal Scenario Testing",Not Started
+CSR611-TC-022,CSR-611-US-004,Test problematic scenario - Rerate $0 followed by Change,Unit Test,High,"Unit test framework set up, Test data with $0 Rerate prepared","1. Create test policy with $0 Rerate premium
+2. Create Change version with actual premium
+3. Execute fixing logic
+4. Verify issue is properly handled
+5. Verify premium calculation is correct","Issue properly handled, Premium calculation correct, Version information accurate, Test passes with green status","Policy Data: Rerate=$0, Change=actual premium","Problematic Scenario Testing",Not Started
+CSR611-TC-023,CSR-611-US-004,Test edge case - Multiple $0 Rerate versions,Unit Test,High,"Unit test framework set up, Test data prepared","1. Create policy with multiple Rerate versions with $0
+2. Create Change version after last Rerate
+3. Execute logic for all versions
+4. Verify all handled correctly
+5. Verify final premium correct","All versions processed correctly, No data corruption, Final premium accurate, Test passes","Policy Data: Multiple Rerate $0 versions","Edge Case Testing",Not Started
+CSR611-TC-024,CSR-611-US-004,Test edge case - Orphaned $0 Rerate (no following Change),Unit Test,Medium,"Unit test framework set up, Test data prepared","1. Create policy with $0 Rerate
+2. Do NOT create following Change version
+3. Execute logic
+4. Verify orphaned Rerate is handled
+5. Verify system doesn't crash","Orphaned case handled gracefully, No errors, System stable, Appropriate warning logged, Test passes","Policy Data: Rerate=$0 without Change","Edge Case Testing",Not Started
+CSR611-TC-025,CSR-611-US-004,Test edge case - $0 Change after normal Rerate,Unit Test,Medium,"Unit test framework set up, Test data prepared","1. Create policy with normal Rerate premium
+2. Create Change version with $0 premium
+3. Execute logic
+4. Verify scenario handled
+5. Verify calculations correct","Scenario handled appropriately, Calculations verified, Version integrity maintained, Test passes","Policy Data: Normal Rerate, $0 Change","Edge Case Testing",Not Started
+CSR611-TC-026,CSR-611-US-004,Test edge case - Endorsement after $0 Rerate,Unit Test,Medium,"Unit test framework set up, Test data prepared","1. Create policy with $0 Rerate
+2. Create Endorsement version
+3. Execute logic
+4. Verify sequencing correct
+5. Verify no conflicts","Endorsement processed correctly, Sequencing accurate, No conflicts, Test passes","Policy Data: Rerate $0 + Endorsement","Edge Case Testing",Not Started
+CSR611-TC-027,CSR-611-US-004,Test boundary - Very small premium amount,Unit Test,Medium,"Unit test framework set up, Very small premium test data prepared","1. Create policy with Rerate = 0.01
+2. Create Change with same small amount
+3. Execute logic
+4. Verify calculation precision
+5. Verify rounding handled","Premium calculated correctly, Rounding appropriate, Precision maintained, Test passes","Policy Data: Premium=0.01","Boundary Testing",Not Started
+CSR611-TC-028,CSR-611-US-004,Test boundary - Very large premium amount,Unit Test,Medium,"Unit test framework set up, Large premium test data prepared","1. Create policy with Rerate = 999999.99
+2. Create Change with large premium
+3. Execute logic
+4. Verify calculations accurate
+5. Verify no overflow errors","Large premiums handled correctly, No overflow, Calculations accurate, Test passes","Policy Data: Premium=999999.99","Boundary Testing",Not Started
+CSR611-TC-029,CSR-611-US-004,Test boundary - Multiple coverage types in policy,Unit Test,Medium,"Unit test framework set up, Multi-coverage test data prepared","1. Create policy with multiple coverage types
+2. Apply $0 Rerate to one coverage
+3. Apply Change to same coverage
+4. Verify each coverage calculated separately
+5. Verify no cross-contamination","Each coverage handled separately, No cross-contamination, Totals correct, Test passes","Policy Data: Multiple Coverages","Boundary Testing",Not Started
+CSR611-TC-030,CSR-611-US-004,Test validation catches $0 Rerate scenarios,Unit Test,High,"Unit test framework set up, Test data prepared","1. Create test policy with $0 Rerate
+2. Execute validation logic
+3. Verify validation catches the scenario
+4. Verify appropriate warning logged
+5. Verify error message clear","Validation catches $0 Rerate, Warning logged appropriately, Message is clear, Validation works as designed, Test passes","Policy Data: Rerate=$0","Validation Testing",Not Started
+CSR611-TC-031,CSR-611-US-004,Test data integrity after corrections,Unit Test,High,"Unit test framework set up, Correction logic implemented","1. Create test policy with $0 Rerate
+2. Execute correction logic
+3. Verify data integrity maintained
+4. Verify no orphaned records
+5. Verify referential integrity","Data integrity maintained, No orphaned records, Referential integrity OK, Database constraints satisfied, Test passes","Policy Data with Corrections","Data Integrity Testing",Not Started
+CSR611-TC-032,CSR-611-US-004,Test performance - Transaction processing impact,Unit Test,High,"Performance testing environment set up, Code changes deployed","1. Measure baseline transaction time
+2. Execute transaction with fix enabled
+3. Measure time with fix
+4. Calculate delta
+5. Verify within acceptable threshold","Processing time acceptable, No degradation, Performance within SLA, Delta < 5%, Test passes","Transaction Data, Performance Metrics","Performance Testing",Not Started
+CSR611-TC-033,CSR-611-US-004,Test performance - Bulk policy updates,Unit Test,High,"Bulk update test environment set up, Large dataset prepared","1. Prepare bulk update of 10000+ policies
+2. Execute update with fix enabled
+3. Monitor system resources
+4. Verify processing completes
+5. Verify no performance degradation","Bulk update completes successfully, No system overload, Processing time acceptable, Resource usage normal, Test passes","Large Policy Dataset","Performance Testing",Not Started
+CSR611-TC-034,CSR-611-US-004,Verify code coverage metrics,Development,High,"Unit tests all written and executed, Code coverage tool configured","1. Run code coverage analysis
+2. Generate coverage report
+3. Verify minimum 95% coverage
+4. Identify any gaps
+5. Document coverage results","Code coverage >= 95%, All critical paths covered, Gaps identified and documented, Report generated, Test passes","Code Coverage Data","Code Quality",Not Started
+CSR611-TC-035,CSR-611-US-005,Integration test - Policy management system,Integration,High,"Code changes deployed to integration environment, Test policies prepared","1. Create test policy with $0 Rerate
+2. Create Change version through policy system
+3. Verify version created correctly
+4. Verify version sequence accurate
+5. Verify policy history correct","Policy versions created correctly, Sequencing accurate, History complete, No errors in system, Test passes","Policy Management API, Test Data","Policy Management Integration",Not Started
+CSR611-TC-036,CSR-611-US-005,Integration test - Rating engine end-to-end,Integration,High,"Integration environment ready, Test policies prepared","1. Execute full rating with $0 Rerate scenario
+2. Generate premium calculation
+3. Verify calculation complete
+4. Check for any calculation errors
+5. Compare against expected result","Premium calculation complete and correct, No calculation errors, Results match expected values, Test passes","Rating Engine, Test Data","Rating Integration",Not Started
+CSR611-TC-037,CSR-611-US-005,Integration test - Billing system interaction,Integration,High,"Integration environment ready, Billing system connected","1. Create policy with $0 Rerate + Change
+2. Send to billing system
+3. Verify correct premium in billing
+4. Verify no duplicate entries
+5. Verify billing cycle processes","Correct premium sent to billing, No duplicates, Billing cycles normally, No errors, Test passes","Billing System, Policy Data","Billing Integration",Not Started
+CSR611-TC-038,CSR-611-US-005,Integration test - Reporting systems,Integration,High,"Integration environment ready, Reporting system ready","1. Create test policies with scenario
+2. Run standard business reports
+3. Verify policies appear correctly
+4. Verify premium data accurate
+5. Verify version data correct","Reports generated correctly, Policy data accurate, Premium data correct, Version info complete, Test passes","Reporting System, Test Data","Reporting Integration",Not Started
+CSR611-TC-039,CSR-611-US-005,Integration test - Audit and compliance logging,Integration,High,"Integration environment ready, Audit system configured","1. Execute policy transaction with fix
+2. Verify audit logs capture changes
+3. Check compliance requirements met
+4. Verify data privacy maintained
+5. Verify complete audit trail","Audit logs complete, Compliance requirements met, Data privacy maintained, Audit trail complete, Test passes","Audit System, Policy Data","Audit Integration",Not Started
+CSR611-TC-040,CSR-611-US-005,Integration test - Data consistency across systems,Integration,High,"Multiple systems integrated, Test data prepared","1. Create policy in system A
+2. Verify propagation to systems B, C, D
+3. Check data consistency
+4. Verify no data loss
+5. Verify timing/sequencing","Data consistent across all systems, No data loss, Timing correct, Sequencing accurate, Test passes","All Integrated Systems","Data Consistency",Not Started
+CSR611-TC-041,CSR-611-US-005,Integration test - Real policy data validation,Integration,High,"Real (anonymized) impacted policies available, Integration environment ready","1. Load actual affected policy
+2. Execute through all systems
+3. Verify correction applied
+4. Compare against expected results
+5. Document any anomalies","Actual policy processed correctly, Correction verified, Results expected, No anomalies, Test passes","Real Policy Data","Real Data Testing",Not Started
+CSR611-TC-042,CSR-611-US-005,Integration test - Performance with typical volume,Integration,High,"Integration environment ready, Typical volume data prepared","1. Load typical transaction volume
+2. Execute processing with fix
+3. Monitor performance metrics
+4. Verify processing completes
+5. Verify no bottlenecks","Processing completes in acceptable time, No bottlenecks, Performance metrics normal, Volume handled, Test passes","Typical Volume Data","Performance Testing",Not Started
+CSR611-TC-043,CSR-611-US-005,Integration test - Performance with peak volume,Integration,Medium,"Integration environment ready, Peak volume data prepared","1. Load peak transaction volume
+2. Execute processing with fix
+3. Monitor performance metrics
+4. Identify any bottlenecks
+5. Document findings","Peak volume processed, Performance acceptable, Bottlenecks identified if any, Metrics recorded, Test passes","Peak Volume Data","Performance Testing",Not Started
+CSR611-TC-044,CSR-611-US-005,Integration test - Failover and recovery,Integration,Medium,"Integration environment with failover capability set up","1. Execute transaction normally
+2. Simulate system failure
+3. Verify failover triggers
+4. Verify recovery process
+5. Verify data integrity after recovery","Failover triggered correctly, Recovery successful, Data integrity maintained, No data loss, Test passes","Failover Scenario","Failover Testing",Not Started
+CSR611-TC-045,CSR-611-US-005,Integration test - Error scenario handling,Integration,Medium,"Integration environment ready, Error scenario data prepared","1. Create policy with conflicting data
+2. Execute through systems
+3. Verify error handling
+4. Check error messages clear
+5. Verify graceful recovery","Error handled gracefully, Messages clear, Recovery successful, System stable, Test passes","Error Scenario Data","Error Handling",Not Started
+CSR611-TC-046,CSR-611-US-005,Regression test - Existing functionality validation,Integration,High,"Integration environment ready, Existing test suite available","1. Execute existing integration test suite
+2. Run all regression tests
+3. Compare results to baseline
+4. Document any new failures
+5. Analyze impact","All existing tests pass, No new failures, Results match baseline, Any issues documented, Test passes","Existing Test Suite","Regression Testing",Not Started
+CSR611-TC-047,CSR-611-US-006,UAT - Problematic scenario is eliminated,User Acceptance,High,"Test environment ready, Previously affected policies available","1. Select previously affected policy
+2. Re-process through system
+3. Verify premium calculated correctly
+4. Verify version information accurate
+5. Confirm issue eliminated","Issue eliminated for selected policy, Premium correct, Version info accurate, Business user confirms, Test passes","Previously Affected Policy","Business Validation",Not Started
+CSR611-TC-048,CSR-611-US-006,UAT - Normal policy lifecycle unimpacted,User Acceptance,High,"Test environment ready, Sample policy prepared","1. Create new policy
+2. Execute renewal
+3. Execute endorsement
+4. Execute change
+5. Verify all steps normal","All steps execute normally, No unexpected delays, Customer data correct, Billing processes correctly, Test passes","Sample Policy","Business Validation",Not Started
+CSR611-TC-049,CSR-611-US-006,UAT - Multiple coverage types validation,User Acceptance,High,"Test environment ready, Multi-coverage sample policies prepared","1. Create policy with multiple coverage types
+2. Apply Rerate then Change
+3. Verify each coverage correct
+4. Verify bundled reporting correct
+5. Verify customer document accurate","All coverages correct, Bundled reporting accurate, Customer documents correct, Premium calculation correct, Test passes","Multi-Coverage Policies","Business Validation",Not Started
+CSR611-TC-050,CSR-611-US-006,UAT - Different states/regions validation,User Acceptance,High,"Test environment ready, Sample policies for multiple states","1. Select policies from at least 5 states
+2. Apply scenario to each
+3. Verify state-specific rules applied
+4. Verify taxes calculated correctly
+5. Verify no cross-state issues","State-specific rules applied, Taxes correct, No cross-state issues, All states validated, Test passes","Multi-State Policies","Business Validation",Not Started
+CSR611-TC-051,CSR-611-US-006,UAT - Standard business reports accuracy,User Acceptance,High,"Test environment ready, Report suite available, Sample data prepared","1. Run standard profit/loss reports
+2. Run premium reports
+3. Run policy status reports
+4. Verify data accuracy
+5. Compare to expected results","Reports generated correctly, Premium data accurate, Status reports correct, Comparison meets expectations, Test passes","Business Reports, Sample Data","Business Validation",Not Started
+CSR611-TC-052,CSR-611-US-006,UAT - Customer communications validation,User Acceptance,High,"Test environment ready, Communication templates available","1. Generate policy document
+2. Generate billing statement
+3. Generate renewal notice
+4. Verify accuracy of all documents
+5. Verify no calculation errors visible","All documents accurate, Premium amounts correct, No calculation errors, Professional appearance, Test passes","Policy Documents","Business Validation",Not Started
+CSR611-TC-053,CSR-611-US-006,UAT - Performance from business perspective,User Acceptance,Medium,"Test environment ready, Performance measurement tools available","1. Measure quote-to-bind time
+2. Measure policy update time
+3. Measure renewal processing time
+4. Compare to baseline
+5. Verify acceptable to users","Quote-to-bind time acceptable, Policy updates timely, Renewal processing fast, No delays noticeable, Test passes","Performance Benchmarks","Business Validation",Not Started
+CSR611-TC-054,CSR-611-US-006,UAT - Compliance requirements verification,User Acceptance,High,"Test environment ready, Compliance checklist available","1. Verify regulatory requirements met
+2. Check audit trail generation
+3. Verify data privacy maintained
+4. Check retention policies
+5. Verify no compliance violations","Regulatory requirements met, Audit trail complete, Privacy maintained, Retention correct, Compliant, Test passes","Compliance Checklist","Compliance Validation",Not Started
+CSR611-TC-055,CSR-611-US-006,UAT - Policy Administration team sign-off,User Acceptance,High,"UAT scenarios completed, Policy Admin team available","1. Present test results to Policy Admin team
+2. Walk through sample policies
+3. Demonstrate fix effectiveness
+4. Address any concerns
+5. Obtain written sign-off","Team understands results, No outstanding concerns, Written sign-off obtained, Ready to proceed, Test passes","Test Results, Documentation","Sign-Off",Not Started
+CSR611-TC-056,CSR-611-US-006,UAT - Billing and Accounting team sign-off,User Acceptance,High,"UAT scenarios completed, Financial impact assessed","1. Present financial impact analysis
+2. Show billing system results
+3. Demonstrate premium calculations
+4. Address financial concerns
+5. Obtain written sign-off","Team satisfied with results, Financial impact clear, Billing validated, Written sign-off obtained, Ready to proceed, Test passes","Financial Analysis, Billing Data","Sign-Off",Not Started
+CSR611-TC-057,CSR-611-US-006,UAT - Compliance Officer sign-off,User Acceptance,High,"UAT scenarios completed, Compliance validation done","1. Present compliance validation results
+2. Review audit trail generation
+3. Demonstrate privacy protection
+4. Review regulatory alignment
+5. Obtain written sign-off","Compliance validated, Audit trail complete, Privacy confirmed, Regulations met, Written sign-off obtained, Test passes","Compliance Results, Audit Trail","Sign-Off",Not Started
+CSR611-TC-058,CSR-611-US-006,UAT - Product Manager sign-off,User Acceptance,High,"UAT scenarios completed, Business requirements met","1. Present business requirements traceability
+2. Show customer impact benefits
+3. Review market readiness
+4. Confirm alignment with roadmap
+5. Obtain written sign-off","Requirements traced, Benefits clear, Market ready, Roadmap aligned, Written sign-off obtained, Test passes","Requirements Matrix","Sign-Off",Not Started
+CSR611-TC-059,CSR-611-US-007,Prepare deployment package - Code changes,Deployment,High,"Code changes finalized and tested, Release notes prepared","1. Extract all code changes
+2. Create deployment bundle
+3. Include configuration changes
+4. Include rollback procedures
+5. Document all changes","Deployment package complete, All changes included, Rollback procedures clear, Documentation accurate, Ready for deployment","Code Files, Config Files","Deployment Preparation",Not Started
+CSR611-TC-060,CSR-611-US-007,Verify deployment in test environment,Deployment,High,"Deployment package ready, Test environment prepared","1. Deploy package to test environment
+2. Verify all files deployed
+3. Run smoke tests
+4. Verify configurations correct
+5. Document results","Deployment successful, All files in place, Smoke tests pass, Configurations correct, Test passes","Deployment Package, Test Env","Deployment Verification",Not Started
+CSR611-TC-061,CSR-611-US-007,Obtain change management approvals,Deployment,High,"Deployment plan prepared, Change board schedule known","1. Submit change request to CAB
+2. Include risk assessment
+3. Include rollback plan
+4. Present to change board
+5. Obtain approval and schedule","Change request approved, All questions addressed, Deployment window scheduled, Approvals documented, Test passes","Change Request","Approvals",Not Started
+CSR611-TC-062,CSR-611-US-007,Execute deployment to production,Deployment,High,"All approvals obtained, Maintenance window scheduled, Support team briefed","1. Send deployment notifications
+2. Begin maintenance window
+3. Deploy code changes
+4. Deploy configurations
+5. Verify deployment success","Deployment executed cleanly, All code deployed, Configurations applied, Maintenance window maintained, Test passes","Production Environment","Production Deployment",Not Started
+CSR611-TC-063,CSR-611-US-007,Run post-deployment verification tests,Deployment,High,"Code deployed to production, Verification tests prepared","1. Run smoke test suite
+2. Test $0 Rerate scenario
+3. Test normal policy flow
+4. Verify error logging
+5. Verify configurations active","All tests pass, Fix active and working, Error logging functional, Configurations verified, No errors, Test passes","Verification Tests, Test Data","Post-Deployment Verification",Not Started
+CSR611-TC-064,CSR-611-US-007,Set up real-time monitoring - Transaction monitoring,Operations,High,"Production deployment complete, Monitoring tools configured","1. Set up monitoring for $0 Rerate transactions
+2. Monitor error rates
+3. Set up alert thresholds
+4. Monitor system performance
+5. Create monitoring dashboard","Monitoring active, Alerts configured, Dashboard created, Real-time metrics visible, System performing normally, Test passes","Monitoring Tools, Metrics","Monitoring Setup",Not Started
+CSR611-TC-065,CSR-611-US-007,Set up business monitoring - Policy operations,Operations,High,"Production monitoring configured, Business metrics defined","1. Monitor policy creation rates
+2. Monitor policy changes
+3. Monitor premium calculations
+4. Monitor customer issues reported
+5. Create business dashboard","Business monitoring active, Metrics collected, Dashboards created, No anomalies detected, System stable, Test passes","Business Metrics, Dashboards","Business Monitoring",Not Started
+CSR611-TC-066,CSR-611-US-007,Define escalation procedures,Operations,High,"Monitoring configured, Escalation contacts identified","1. Define what constitutes an issue
+2. Define severity levels
+3. Define escalation paths
+4. Document contact procedures
+5. Brief support team","Procedures documented, Severity levels clear, Escalation paths defined, Support team briefed, Everyone knows procedures, Test passes","Escalation Procedures","Operational Readiness",Not Started
+CSR611-TC-067,CSR-611-US-007,Test rollback procedures,Deployment,High,"Rollback plan prepared, Backup created, Test environment available","1. Prepare rollback scripts
+2. Test rollback in non-production
+3. Verify data consistency after rollback
+4. Time the rollback
+5. Document results","Rollback tested successfully, Scripts work correctly, Data consistent, Timing acceptable, Procedures verified, Test passes","Rollback Scripts","Rollback Testing",Not Started
+CSR611-TC-068,CSR-611-US-007,Notify all stakeholders of deployment,Operations,Medium,"Deployment complete, All stakeholders identified","1. Send deployment notification
+2. Explain the fix
+3. Outline monitoring period
+4. Provide escalation contacts
+5. Request feedback","Notifications sent to all, Information clear, Contacts provided, Acknowledgments received, Communications complete, Test passes","Stakeholder List","Communications",Not Started
+CSR611-TC-069,CSR-611-US-008,Confirm $0 Rerate scenario no longer occurring,Post-Deployment,High,"Production monitoring active, 30 days post-deployment passed","1. Query production data for problematic pattern
+2. Search for Rerate $0 + Change pattern
+3. Document date range searched
+4. Verify no new instances
+5. Confirm pattern eliminated","No new instances found, Date range complete, Pattern verification thorough, Confirmation documented, Test passes","Production Data","Validation",Not Started
+CSR611-TC-070,CSR-611-US-008,Validate previously impacted policies corrected,Post-Deployment,High,"Historical correction applied, Sample impacted policies identified","1. Select sample of previously affected policies
+2. Re-calculate premiums
+3. Verify corrections applied
+4. Confirm premiums now accurate
+5. Document validation results","Corrections verified for all samples, Premiums accurate, Validation complete, No issues found, Test passes","Previously Affected Policies","Validation",Not Started
+CSR611-TC-071,CSR-611-US-008,Monitor resolution metrics,Post-Deployment,High,"Monitoring data collected, Metrics calculated","1. Count policies impacted before fix
+2. Count issues resolved post-deployment
+3. Calculate percentage eliminated
+4. Calculate cost impact
+5. Document metrics","Metrics calculated accurately, Percentage elimination high, Cost impact documented, All data captured, Test passes","Metrics Data","Performance Analysis",Not Started
+CSR611-TC-072,CSR-611-US-008,Verify system stability post-deployment,Post-Deployment,High,"Monitoring data available, 30 days post-deployment data collected","1. Review error logs
+2. Check system performance metrics
+3. Verify no degradation
+4. Check customer issues/complaints
+5. Confirm system stable","No new errors introduced, Performance stable, No degradation, Customer issues minimal, System performing well, Test passes","System Logs, Metrics","Stability Verification",Not Started
+CSR611-TC-073,CSR-611-US-008,Validate business process health,Post-Deployment,High,"Business monitoring data collected, Process definitions available","1. Run business process validation
+2. Check policy lifecycle flows
+3. Verify no process exceptions
+4. Check customer satisfaction
+5. Confirm process health good","All processes healthy, No exceptions, Satisfaction metrics good, Business running smoothly, Test passes","Business Processes, Metrics","Business Validation",Not Started
+CSR611-TC-074,CSR-611-US-008,Create post-deployment report,Post-Deployment,High,"All validation data collected, Report template prepared","1. Prepare executive summary
+2. Document technical summary
+3. Include validation results
+4. Include monitoring results
+5. Document lessons learned","Report complete and comprehensive, All sections filled, Data accurate, Lessons captured, Ready for distribution, Test passes","Validation Data, Monitoring Data","Reporting",Not Started
+CSR611-TC-075,CSR-611-US-008,Obtain final approvals,Post-Deployment,High,"Post-deployment report complete, Approval committee available","1. Submit report to QA team
+2. Submit to business stakeholders
+3. Submit to technical leads
+4. Submit to support team
+5. Collect all approvals","All approvals obtained, No outstanding issues, Sign-offs complete, Ready to close CSR, Test passes","Final Report","Sign-Off",Not Started
+CSR611-TC-076,CSR-611-US-008,Close related incidents and tickets,Post-Deployment,High,"CSR approved, All related incidents identified","1. Identify all related incidents
+2. Link to CSR-611
+3. Update incident status
+4. Close resolved incidents
+5. Document final status","All incidents identified and linked, Status updated, Incidents closed, Documentation complete, Test passes","Incident Management System","Incident Closure",Not Started
+CSR611-TC-077,CSR-611-US-008,Create knowledge base article,Documentation,High,"All CSR documentation complete, Knowledge base system accessible","1. Document the issue
+2. Document the fix
+3. Document the impact
+4. Include troubleshooting guide
+5. Publish to knowledge base","Article complete and detailed, Technical and business content included, Troubleshooting guide helpful, Published and accessible, Test passes","Knowledge Base","Documentation",Not Started
+CSR611-TC-078,CSR-611-US-009,Query historical data for affected policies,Data Quality,High,"Production database accessible, Cutoff date for historical search determined","1. Access historical policy data
+2. Query for Rerate $0 + Change pattern
+3. Identify all matching policies
+4. Document scope and count
+5. Prepare for correction","Query executed successfully, All affected policies identified, Count documented, Scope clear, Ready for correction, Test passes","Historical Policy Data","Data Discovery",Not Started
+CSR611-TC-079,CSR-611-US-009,Develop data correction strategy,Development,High,"Historical data analyzed, Business rules documented","1. Determine correction approach
+2. Define business rules for correction
+3. Define validation rules
+4. Identify regulatory implications
+5. Document strategy","Strategy documented and sound, Business rules clear, Validation approach defined, Regulatory implications understood, Ready to implement, Test passes","Business Requirements","Strategy Development",Not Started
+CSR611-TC-080,CSR-611-US-009,Test correction process in test environment,Data Quality,High,"Correction logic developed, Test data prepared, Test database available","1. Load test data with affected policies
+2. Execute correction logic
+3. Validate results
+4. Create audit trail
+5. Verify no unintended impacts","Corrections applied correctly, Validation passes, Audit trail complete, No unintended changes, Test passes","Test Data, Correction Scripts","Testing",Not Started
+CSR611-TC-081,CSR-611-US-009,Execute historical data corrections,Data Quality,High,"Corrections tested and approved, Maintenance window scheduled","1. Schedule maintenance window
+2. Back up production data
+3. Execute corrections
+4. Validate applied correctly
+5. Generate correction report","Corrections executed successfully, Backup verified, Validation complete, Report generated, Test passes","Production Database","Data Correction",Not Started
+CSR611-TC-082,CSR-611-US-009,Validate corrected data integrity,Data Quality,High,"Corrections completed, Validation data prepared","1. Query corrected policies
+2. Verify corrections applied
+3. Verify accuracy
+4. Check no unintended modifications
+5. Document validation results","All corrections verified accurate, No unintended changes, Data integrity maintained, Validation complete, Test passes","Corrected Policy Data","Data Validation",Not Started
+CSR611-TC-083,CSR-611-US-009,Reconcile with dependent systems,Integration,High,"Corrections completed in production, Dependent systems identified","1. Verify corrections propagate to billing
+2. Verify corrections in reporting
+3. Check audit logs updated
+4. Resolve any inconsistencies
+5. Document reconciliation","Corrections propagated correctly, Systems reconciled, Inconsistencies resolved, Audit logs updated, All systems aligned, Test passes","Dependent Systems","Reconciliation",Not Started
+CSR611-TC-084,CSR-611-US-009,Create correction documentation,Documentation,High,"All corrections completed and verified","1. Document scope of corrections
+2. Document methodology
+3. Document validation results
+4. Create audit report
+5. Prepare for compliance","Documentation complete and thorough, Audit report generated, Ready for compliance review, All details captured, Test passes","Correction Data, Methodology","Documentation",Not Started
+CSR611-TC-085,CSR-611-US-009,Communicate corrections to stakeholders,Operations,High,"Corrections completed and documented, Stakeholder list prepared","1. Notify Finance team
+2. Notify Compliance team
+3. Notify Internal Audit
+4. Notify customer service
+5. Document all communications","All notifications sent, Stakeholders informed, Questions addressed, Acknowledgments received, Communications complete, Test passes","Stakeholder List","Communications",Not Started
+CSR611-TC-086,CSR-611-US-010,Create technical documentation,Documentation,High,"Technical team available, Code changes documented","1. Document issue overview
+2. Document root cause
+3. Document technical fix
+4. Document code changes
+5. Include troubleshooting guide","Documentation complete and detailed, Technical depth appropriate, Troubleshooting helpful, Code walkthrough clear, Ready for publication, Test passes","Technical Knowledge","Documentation",Not Started
+CSR611-TC-087,CSR-611-US-010,Create operational documentation,Documentation,High,"Operations team available, Procedures defined","1. Document issue identification
+2. Document fix overview
+3. Document monitoring procedures
+4. Document escalation procedures
+5. List key contacts","Documentation clear and actionable, All procedures documented, Escalation paths clear, Contact list complete, Operations ready, Test passes","Operational Knowledge","Documentation",Not Started
+CSR611-TC-088,CSR-611-US-010,Create customer-facing documentation,Documentation,Medium,"Marketing/Communications team available, Customer-facing approved","1. Explain issue in customer terms
+2. Explain fix benefits
+3. Create FAQ document
+4. Define customer actions if any
+5. Review for accuracy","Documentation customer-friendly, Benefits clear, FAQs comprehensive, No technical jargon, Ready for distribution, Test passes","Customer Communication","Documentation",Not Started
+CSR611-TC-089,CSR-611-US-010,Create support team documentation,Documentation,High,"Support team available, Support procedures defined","1. Document issue diagnosis
+2. Document resolution steps
+3. Create troubleshooting guide
+4. Document escalation procedures
+5. Prepare Q&A document","Documentation comprehensive, Troubleshooting guide useful, Escalation clear, Q&As complete, Support ready, Test passes","Support Knowledge","Documentation",Not Started
+CSR611-TC-090,CSR-611-US-010,Create training materials,Training,High,"Training team available, Subject matter experts identified","1. Create overview presentation
+2. Create technical deep-dive docs
+3. Create operational procedures
+4. Create Q&A document
+5. Plan video walkthrough","All training materials ready, Content accurate, Appropriate for audience, Engaging format, Ready for delivery, Test passes","Training Content","Training Preparation",Not Started
+CSR611-TC-091,CSR-611-US-010,Conduct technical team training,Training,High,"Training materials ready, Technical team available","1. Schedule training session
+2. Deliver technical content
+3. Walk through code changes
+4. Review troubleshooting
+5. Answer questions","Training delivered effectively, Attendees understand content, Questions answered, Knowledge confirmed, Training successful, Test passes","Training Session","Training Execution",Not Started
+CSR611-TC-092,CSR-611-US-010,Conduct support team training,Training,High,"Training materials ready, Support team available","1. Schedule training session
+2. Deliver operational content
+3. Review issue identification
+4. Review escalation procedures
+5. Q&A session","Training delivered effectively, Support understands issue, Procedures clear, Escalation paths known, Training successful, Test passes","Training Session","Training Execution",Not Started
+CSR611-TC-093,CSR-611-US-010,Conduct operations team training,Training,High,"Training materials ready, Operations team available","1. Schedule training session
+2. Deliver operational procedures
+3. Review monitoring setup
+4. Review escalation procedures
+5. Hands-on Q&A","Training delivered effectively, Operations understands procedures, Monitoring clear, Escalation known, Training successful, Test passes","Training Session","Training Execution",Not Started
+CSR611-TC-094,CSR-611-US-010,Conduct business stakeholder briefing,Training,Medium,"Training materials ready, Business stakeholders identified","1. Schedule briefing session
+2. Present business impact
+3. Explain fix benefits
+4. Review reporting
+5. Q&A session","Briefing delivered effectively, Stakeholders understand impact, Benefits appreciated, Questions answered, Briefing successful, Test passes","Briefing Session","Training Execution",Not Started
+CSR611-TC-095,CSR-611-US-010,Conduct executive briefing,Training,Medium,"Executive summary prepared, Executives available","1. Schedule executive briefing
+2. Present high-level overview
+3. Explain business value
+4. Review metrics
+5. Q&A session","Briefing delivered at appropriate level, Executives informed, Value understood, Questions answered, Briefing successful, Test passes","Executive Briefing","Training Execution",Not Started
+CSR611-TC-096,CSR-611-US-010,Document training attendance,Training,High,"All training sessions conducted, Attendance tracked","1. Track all attendees
+2. Document training completion
+3. Create sign-off document
+4. Record any concerns raised
+5. Plan ongoing training","Attendance documented, Sign-offs collected, Concerns recorded, All personnel trained, Document complete, Test passes","Training Records","Training Completion",Not Started
+CSR611-TC-097,CSR-611-US-010,Create knowledge base articles,Documentation,High,"All documentation complete, Knowledge base system ready","1. Create issue overview article
+2. Create fix explanation article
+3. Create troubleshooting article
+4. Create procedures article
+5. Publish to knowledge base","Articles created and detailed, Technical accuracy verified, Published and accessible, Search-friendly, Knowledge base updated, Test passes","Knowledge Base","Knowledge Management",Not Started
+CSR611-TC-098,CSR-611-US-010,Create operational runbooks,Documentation,High,"Operational procedures defined, Runbook template available","1. Create issue identification runbook
+2. Create escalation runbook
+3. Create troubleshooting runbook
+4. Create monitoring runbook
+5. Test runbook usability","Runbooks created and clear, Step-by-step procedures, Easy to follow, Tested for usability, All available to operations, Test passes","Operational Procedures","Documentation",Not Started
+CSR611-TC-099,CSR-611-US-010,Establish ongoing support structure,Operations,High,"Support team trained, Support processes defined","1. Assign primary point of contact
+2. Assign backup contact
+3. Define support hours
+4. Create support procedures
+5. Set up support tracking","Support structure established, Contacts assigned, Hours defined, Procedures clear, Support ready, Test passes","Support Organization","Operational Readiness",Not Started
+CSR611-TC-100,CSR-611-US-010,Plan future team member training,Training,Medium,"Training materials finalized, Training schedule established","1. Document ongoing training needs
+2. Prepare orientation materials
+3. Define training schedule
+4. Assign training responsibility
+5. Create training tracking system","Training plan documented, Orientation materials ready, Schedule established, Responsibility assigned, System ready, Test passes","Training Program","Training Sustainability",Not Started
